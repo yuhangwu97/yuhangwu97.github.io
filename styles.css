@@ -53,11 +53,13 @@ body::before {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    overflow: hidden;
 }
 
 .hero {
@@ -65,9 +67,9 @@ body::before {
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 15px 25px;
+    padding: 12px 20px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     box-shadow: var(--shadow-strong);
     position: relative;
     overflow: hidden;
@@ -159,7 +161,8 @@ main {
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
+    overflow: visible;
 }
 
 section {
@@ -356,20 +359,24 @@ section h2 i {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-top: 15px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
 .project-card {
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 16px;
+    border-radius: 12px;
+    padding: 12px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    height: auto;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card::before {
@@ -397,15 +404,17 @@ section h2 i {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
 }
 
 .project-header h3 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
     line-height: 1.2;
+    flex: 1;
 }
 
 .project-type {
@@ -413,7 +422,7 @@ section h2 i {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 600;
     white-space: nowrap;
     flex-shrink: 0;
@@ -421,26 +430,34 @@ section h2 i {
 
 .project-description {
     color: var(--text-secondary);
-    line-height: 1.4;
-    margin-bottom: 12px;
-    font-size: 0.75rem;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    font-size: 0.7rem;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .project-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 3px;
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 .tech-tag {
     background: rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
-    padding: 3px 6px;
-    border-radius: 10px;
-    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 8px;
+    font-size: 0.55rem;
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    line-height: 1.2;
 }
 
 .tech-tag:hover {
