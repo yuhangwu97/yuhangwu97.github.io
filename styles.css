@@ -32,7 +32,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.02em;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body::before {
@@ -53,13 +54,11 @@ body::before {
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 15px;
-    height: 100vh;
+    padding: 20px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 20px;
-    overflow: hidden;
 }
 
 .hero {
@@ -67,9 +66,9 @@ body::before {
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 12px 20px;
+    padding: 20px 30px;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     box-shadow: var(--shadow-strong);
     position: relative;
     overflow: hidden;
@@ -158,11 +157,9 @@ body::before {
 
 main {
     flex: 1;
-    min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    overflow: visible;
+    gap: 20px;
 }
 
 section {
@@ -170,12 +167,10 @@ section {
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 15px;
+    padding: 20px;
     box-shadow: var(--shadow-medium);
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: visible;
-    height: auto;
 }
 
 section:hover {
@@ -359,22 +354,22 @@ section h2 i {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 10px;
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .project-card {
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 16px;
+    padding: 18px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     cursor: pointer;
     height: auto;
-    min-height: 140px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
 }
