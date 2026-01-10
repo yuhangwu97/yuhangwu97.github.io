@@ -1,756 +1,242 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>吴宇航 | Backend Engineer & Tech Blogger</title>
+    <title>吴宇航 Wu Yuhang | AI编程 & 全栈开发</title>
+    <meta name="description" content="AI & 全栈开发，专注于 AIGC、知识图谱与高性能系统架构。">
+
+    <!-- Google Fonts: Outfit for numbers/English, Noto Sans SC for Chinese -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent: #58a6ff;
-            --accent-hover: #79c0ff;
-            --border: #30363d;
-            --gradient-start: #667eea;
-            --gradient-end: #764ba2;
-        }
-        
-        [data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f6f8fa;
-            --bg-tertiary: #eaeef2;
-            --text-primary: #1f2328;
-            --text-secondary: #656d76;
-            --text-muted: #8c959f;
-            --border: #d0d7de;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            background: rgba(13, 17, 23, 0.8);
-        }
-        
-        [data-theme="light"] nav {
-            background: rgba(255, 255, 255, 0.8);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-        
-        .nav-logo span {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-        
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.25rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        
-        .theme-toggle:hover {
-            background: var(--bg-tertiary);
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6rem 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            text-align: center;
-            z-index: 1;
-        }
-        
-        .hero-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 2rem;
-            border: 3px solid var(--border);
-            box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-        
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .hero-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-        
-        .hero-link:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        
-        .hero-link.primary {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border: none;
-            color: white;
-        }
-        
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 28px;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border-radius: 2px;
-        }
-        
-        /* Blog Posts */
-        .posts-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-        
-        .post-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .post-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .post-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        
-        .post-tag {
-            background: var(--bg-tertiary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-        
-        .post-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .post-excerpt {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-        
-        .project-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-        }
-        
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-        
-        .project-icon {
-            font-size: 2rem;
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .project-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-        
-        .project-link:hover {
-            background: var(--bg-tertiary);
-            color: var(--accent);
-        }
-        
-        .project-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .project-description {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .project-tag {
-            background: var(--bg-tertiary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .skill-category {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-        
-        .skill-category h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .skill-tag {
-            background: var(--bg-tertiary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-        
-        .skill-tag:hover {
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-        
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--text-muted);
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: color 0.2s;
-        }
-        
-        .footer-link:hover {
-            color: var(--accent);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo"><span>Y</span>uhang</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="background-mesh"></div>
 
-    <section class="hero" id="about">
-        <div class="hero-content">
-            <img src="https://avatars.githubusercontent.com/u/45417854" alt="Yuhang Wu" class="hero-avatar">
-            <h1>吴宇航</h1>
-            <p class="hero-subtitle">Senior Backend Engineer</p>
-            <p class="hero-description">
-                🔭 目前就职于趋势科技，专注于构建可扩展、高性能的后端系统和微服务架构。<br>
-                热爱开源，乐于分享技术经验与最佳实践。
-            </p>
-            <div class="hero-links">
-                <a href="#blog" class="hero-link primary">📝 阅读博客</a>
-                <a href="https://github.com/yuhangwu97" class="hero-link">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="mailto:1587237547@qq.com" class="hero-link">📧 联系我</a>
+    <div class="bento-container">
+        <!-- Profile Card (Hero) -->
+        <header class="bento-item profile-card">
+            <div class="card-content">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    寻求有趣的合作机会
+                </div>
+                <h1>Wu Yuhang</h1>
+                <div class="role-title">AI & 全栈开发</div>
+                <div class="bio-text">
+                    致力于 <strong>AIGC</strong> 创新与稳健 <strong>全栈开发</strong> 的深度融合。
+                    <br>打造高性能系统与智能 Agent 的工匠。
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/yuhangwu97" target="_blank" class="social-btn" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:1587237547@qq.com" class="social-btn" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <section id="blog">
-        <h2 class="section-title">最新文章</h2>
-        <div class="posts-grid">
-            <a href="#" class="post-card">
-                <div class="post-meta">
-                    <span>2024-12-15</span>
-                    <span class="post-tag">Go</span>
-                    <span>· 8 min read</span>
-                </div>
-                <h3 class="post-title">使用 Go 构建高性能 API 网关</h3>
-                <p class="post-excerpt">深入探讨如何利用 Go 语言的并发特性，结合 Kong 网关构建企业级高性能 API 网关系统...</p>
-            </a>
-            
-            <a href="#" class="post-card">
-                <div class="post-meta">
-                    <span>2024-12-01</span>
-                    <span class="post-tag">Architecture</span>
-                    <span>· 12 min read</span>
-                </div>
-                <h3 class="post-title">微服务架构最佳实践：从单体到分布式</h3>
-                <p class="post-excerpt">分享在趋势科技的微服务实践经验，包括服务拆分策略、通信模式选择、容错设计等核心话题...</p>
-            </a>
-            
-            <a href="#" class="post-card">
-                <div class="post-meta">
-                    <span>2024-11-20</span>
-                    <span class="post-tag">Python</span>
-                    <span>· 10 min read</span>
-                </div>
-                <h3 class="post-title">从零实现企业级 Python Web 框架</h3>
-                <p class="post-excerpt">参考 NestJS 设计理念，实现支持依赖注入、AOP 切面编程的 Python Web 框架...</p>
-            </a>
-            
-            <a href="#" class="post-card">
-                <div class="post-meta">
-                    <span>2024-11-05</span>
-                    <span class="post-tag">Rust</span>
-                    <span>· 6 min read</span>
-                </div>
-                <h3 class="post-title">Rust 学习笔记：所有权与生命周期</h3>
-                <p class="post-excerpt">深入理解 Rust 核心概念，通过实例解析所有权、借用和生命周期的设计哲学...</p>
-            </a>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-title">精选项目</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-icon">🏢</span>
-                    <div class="project-links">
-                        <a href="https://github.com/yuhangwu97/Golang-HR" class="project-link" title="GitHub">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
+        <!-- Tech Stack Card -->
+        <section class="bento-item tech-card">
+            <div class="card-header">
+                <h2><i class="fas fa-layer-group"></i> 技术栈</h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3>AI 智能体</h3>
+                    <div class="tags">
+                        <span>Claude Code</span>
+                        <span>Cursor</span>
+                        <span>GraphRAG</span>
+                        <span>Vector DB</span>
+                        <span>LangChain</span>
                     </div>
                 </div>
-                <h3 class="project-title">Golang-HR</h3>
-                <p class="project-description">企业级人力资源管理系统，基于 Go + Vue 全栈开发，包含组织架构管理、薪资发放和权限控制。</p>
-                <div class="project-tags">
-                    <span class="project-tag">Go</span>
-                    <span class="project-tag">Gin</span>
-                    <span class="project-tag">Vue.js</span>
-                    <span class="project-tag">MySQL</span>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-icon">🐍</span>
-                    <div class="project-links">
-                        <a href="https://github.com/yuhangwu97/Python-Web-Framework" class="project-link" title="GitHub">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
+                <div class="tech-category">
+                    <h3>后端核心</h3>
+                    <div class="tags">
+                        <span>Rust</span>
+                        <span>Go</span>
+                        <span>Python</span>
+                        <span>Node.js</span>
+                        <span>Microservices</span>
                     </div>
                 </div>
-                <h3 class="project-title">Python Web Framework</h3>
-                <p class="project-description">参考 NestJS 设计的企业级 Python Web 框架，支持依赖注入、AOP 和 MySQL 集成。</p>
-                <div class="project-tags">
-                    <span class="project-tag">Python</span>
-                    <span class="project-tag">FastAPI</span>
-                    <span class="project-tag">SQLAlchemy</span>
-                    <span class="project-tag">DI</span>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-icon">⚡</span>
-                    <div class="project-links">
-                        <a href="https://github.com/yuhangwu97/Serverless-Framework" class="project-link" title="GitHub">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
+                <div class="tech-category">
+                    <h3>云原生设施</h3>
+                    <div class="tags">
+                        <span>K8s</span>
+                        <span>Docker</span>
+                        <span>AWS</span>
+                        <span>Terraform</span>
                     </div>
                 </div>
-                <h3 class="project-title">Serverless Framework</h3>
-                <p class="project-description">基于 Kong 网关的微服务管理系统，实现智能路由分发和多数据库架构设计。</p>
-                <div class="project-tags">
-                    <span class="project-tag">Kong</span>
-                    <span class="project-tag">Node.js</span>
-                    <span class="project-tag">gRPC</span>
-                    <span class="project-tag">TypeScript</span>
-                </div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-icon">🤖</span>
-                    <div class="project-links">
-                        <a href="https://github.com/yuhangwu97/Gemini-Cortex" class="project-link" title="GitHub">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
-                    </div>
-                </div>
-                <h3 class="project-title">Gemini Cortex</h3>
-                <p class="project-description">基于 Gemini AI 的智能助手项目，探索 LLM 应用开发实践。</p>
-                <div class="project-tags">
-                    <span class="project-tag">TypeScript</span>
-                    <span class="project-tag">Gemini</span>
-                    <span class="project-tag">AI</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="skills">
-        <h2 class="section-title">技术栈</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3>💻 编程语言</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Go</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Rust</span>
-                    <span class="skill-tag">Lua</span>
-                    <span class="skill-tag">Java</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>🚀 后端框架</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Express</span>
-                    <span class="skill-tag">NestJS</span>
-                    <span class="skill-tag">Gin</span>
-                    <span class="skill-tag">Echo</span>
-                    <span class="skill-tag">FastAPI</span>
-                    <span class="skill-tag">Spring Boot</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>🗄️ 数据库</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">MySQL</span>
-                    <span class="skill-tag">MongoDB</span>
-                    <span class="skill-tag">Redis</span>
-                    <span class="skill-tag">DynamoDB</span>
-                    <span class="skill-tag">PostgreSQL</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>☁️ 基础设施</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Kubernetes</span>
-                    <span class="skill-tag">AWS</span>
-                    <span class="skill-tag">Kong</span>
-                    <span class="skill-tag">Nginx</span>
-                    <span class="skill-tag">Terraform</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>🔗 协议 & 架构</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">REST API</span>
-                    <span class="skill-tag">GraphQL</span>
-                    <span class="skill-tag">gRPC</span>
-                    <span class="skill-tag">WebSocket</span>
-                    <span class="skill-tag">微服务</span>
-                    <span class="skill-tag">事件驱动</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>🛠️ 工具链</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Git</span>
-                    <span class="skill-tag">CI/CD</span>
-                    <span class="skill-tag">Prometheus</span>
-                    <span class="skill-tag">Grafana</span>
-                    <span class="skill-tag">Jest</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <h3>🤖 AI & LLM</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Cursor</span>
-                    <span class="skill-tag">Claude Code</span>
-                    <span class="skill-tag">Kiro</span>
-                    <span class="skill-tag">LangChain</span>
-                    <span class="skill-tag">LangGraph</span>
-                    <span class="skill-tag">RAG</span>
-                    <span class="skill-tag">GraphRAG</span>
-                    <span class="skill-tag">Knowledge Graph</span>
-                </div>
-            </div>
+        <!-- Stats / Highlights (Small Cards) -->
+        <div class="bento-item stat-card highlight-1">
+            <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+            <div class="stat-value">开源贡献者</div>
+            <div class="stat-label">Open Source</div>
         </div>
-    </section>
+
+        <div class="bento-item stat-card highlight-2">
+            <div class="stat-icon"><i class="fas fa-brain"></i></div>
+            <div class="stat-value">AGI 探索者</div>
+            <div class="stat-label">Explorer</div>
+        </div>
+
+        <!-- Projects Header -->
+        <div class="bento-item section-header">
+            <h2>精选项目</h2>
+            <p>探索 Web3 与 AI 的无限可能</p>
+        </div>
+
+        <!-- Project: Serverless Framework -->
+        <a href="https://github.com/yuhangwu97/Serverless-Framework" target="_blank"
+            class="bento-item project-card p-serverless">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>Serverless FW</h3>
+                <p>基于 Serverless 的后端基础设施模板。</p>
+                <div class="project-tags">
+                    <span>Serverless</span>
+                    <span>Kong</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Project: Golang-HR -->
+        <a href="https://github.com/yuhangwu97/Golang-HR" target="_blank" class="bento-item project-card p-golang-hr">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>Golang-HR</h3>
+                <p>现代化企业级人力资源管理系统。</p>
+                <div class="project-tags">
+                    <span>Go</span>
+                    <span>Vue 3</span>
+                    <span>MySQL</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Project: Python-Web-Framework -->
+        <a href="https://github.com/yuhangwu97/Python-Web-Framework" target="_blank"
+            class="bento-item project-card p-python-web">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>Python Web FW</h3>
+                <p>高性能企业级 Python Web 框架。</p>
+                <div class="project-tags">
+                    <span>Python</span>
+                    <span>Web Framework</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Project: Web3 Pay -->
+        <a href="https://github.com/yuhangwu97/web3-pay" target="_blank" class="bento-item project-card p-web3">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>web3-pay</h3>
+                <p>去中心化金融支付解决方案演示。</p>
+                <div class="project-tags">
+                    <span>Web3.js</span>
+                    <span>DeFi</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Project: Gemini Cortex -->
+        <a href="https://github.com/yuhangwu97/Gemini-Cortex" target="_blank" class="bento-item project-card p-gemini">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>Gemini Cortex</h3>
+                <p>集成 Google Gemini 模型的智能 Agent。</p>
+                <div class="project-tags">
+                    <span>LLM</span>
+                    <span>React</span>
+                </div>
+            </div>
+        </a>
+
+
+
+        <!-- Project: Yu-Doc -->
+        <a href="https://github.com/yuhangwu97/Yu-Doc" target="_blank" class="bento-item project-card p-doc">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>Yu-Doc</h3>
+                <p>支持图谱关联的个人知识库系统。</p>
+                <div class="project-tags">
+                    <span>Knowledge Graph</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Project: AIGC Platform -->
+        <a href="https://github.com/yuhangwu97/AIGC-Platform-demo" target="_blank"
+            class="bento-item project-card p-aigc">
+            <div class="project-content">
+                <div class="project-top">
+                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
+                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                </div>
+                <h3>AIGC Platform</h3>
+                <p>多模态内容生成与管理平台演示。</p>
+                <div class="project-tags">
+                    <span>Next.js</span>
+                    <span>Python</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
 
     <footer>
-        <div class="footer-links">
-            <a href="https://github.com/yuhangwu97" class="footer-link" title="GitHub">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="mailto:1587237547@qq.com" class="footer-link" title="Email">📧</a>
-        </div>
-        <p>© 2024 吴宇航. 用 ❤️ 构建</p>
+        <p>© 2026 Wu Yuhang. Crafted with <i class="fas fa-heart" style="color: #e11d48;"></i> & Code.</p>
     </footer>
 
     <script>
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.querySelector('.theme-toggle');
-            
-            if (body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-                btn.textContent = '🌙';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                btn.textContent = '☀️';
-            }
-        }
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+        // Simple subtle parallax effect for the mesh background
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            const mesh = document.querySelector('.background-mesh');
+            mesh.style.transform = `translate(-${x * 20}px, -${y * 20}px)`;
         });
     </script>
 </body>
+
 </html>
