@@ -1,242 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>吴宇航 Wu Yuhang | AI编程 & 全栈开发</title>
-    <meta name="description" content="AI & 全栈开发，专注于 AIGC、知识图谱与高性能系统架构。">
+    <meta name="theme-color" content="#071014">
+    <meta name="description" content="Wu Yuhang 的个人数字孪生工作台：AI 系统、全栈工程与可持续的产品构建。">
+    <title>Wu Yuhang | Digital Twin Workbench</title>
 
-    <!-- Google Fonts: Outfit for numbers/English, Noto Sans SC for Chinese -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
 </head>
 
 <body>
-    <div class="background-mesh"></div>
+    <canvas id="twin-canvas" aria-hidden="true"></canvas>
+    <div class="scene-fallback" aria-hidden="true"><span></span></div>
 
-    <div class="bento-container">
-        <!-- Profile Card (Hero) -->
-        <header class="bento-item profile-card">
-            <div class="card-content">
-                <div class="status-badge">
-                    <span class="status-dot"></span>
-                    寻求有趣的合作机会
-                </div>
-                <h1>Wu Yuhang</h1>
-                <div class="role-title">AI & 全栈开发</div>
-                <div class="bio-text">
-                    致力于 <strong>AIGC</strong> 创新与稳健 <strong>全栈开发</strong> 的深度融合。
-                    <br>打造高性能系统与智能 Agent 的工匠。
-                </div>
+    <div class="page-shell">
+        <header class="topbar" id="top">
+            <a class="brand" href="#top" aria-label="回到首页">
+                <span class="brand-mark">WY</span>
+                <span class="brand-copy">
+                    <strong>WU YUHANG</strong>
+                    <small>AI SYSTEMS / FULL STACK</small>
+                </span>
+            </a>
 
-                <div class="social-links">
-                    <a href="https://github.com/yuhangwu97" target="_blank" class="social-btn" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:1587237547@qq.com" class="social-btn" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
+            <nav class="topnav" aria-label="主导航">
+                <a href="#systems">Systems</a>
+                <a href="#stack">Stack</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="topbar-meta">
+                <span class="live-indicator"><i></i> AVAILABLE FOR WORK</span>
+                <span class="location">NANJING / UTC+08</span>
             </div>
         </header>
 
-        <!-- Tech Stack Card -->
-        <section class="bento-item tech-card">
-            <div class="card-header">
-                <h2><i class="fas fa-layer-group"></i> 技术栈</h2>
-            </div>
-            <div class="tech-grid">
-                <div class="tech-category">
-                    <h3>AI 智能体</h3>
-                    <div class="tags">
-                        <span>Claude Code</span>
-                        <span>Cursor</span>
-                        <span>GraphRAG</span>
-                        <span>Vector DB</span>
-                        <span>LangChain</span>
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <div class="eyebrow"><span>01</span> PERSONAL DIGITAL TWIN</div>
+                    <h1 id="hero-title">让复杂系统<br><em>变得可理解。</em></h1>
+                    <p class="hero-summary">我是吴宇航，专注 AI 工程、后端系统与产品体验。把模型、数据和基础设施连接起来，交付真正能在现场持续运行的产品。</p>
+
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#systems">查看系统 <i class="fa-solid fa-arrow-down"></i></a>
+                        <a class="button button-ghost" href="https://github.com/yuhangwu97" target="_blank" rel="noreferrer">GitHub <i class="fa-brands fa-github"></i></a>
+                    </div>
+
+                    <div class="terminal-readout" aria-label="系统命令状态"><span class="terminal-prompt">$</span><span>twin.boot --mode=adaptive</span><span class="terminal-cursor"></span><strong>READY</strong></div>
+
+                    <div class="hero-facts" aria-label="个人概览">
+                        <div><strong>10+</strong><span>YEARS IN CODE</span></div>
+                        <div><strong>39</strong><span>PUBLIC REPOS</span></div>
+                        <div><strong>∞</strong><span>ITERATIONS</span></div>
                     </div>
                 </div>
-                <div class="tech-category">
-                    <h3>后端核心</h3>
-                    <div class="tags">
-                        <span>Rust</span>
-                        <span>Go</span>
-                        <span>Python</span>
-                        <span>Node.js</span>
-                        <span>Microservices</span>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h3>云原生设施</h3>
-                    <div class="tags">
-                        <span>K8s</span>
-                        <span>Docker</span>
-                        <span>AWS</span>
-                        <span>Terraform</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Stats / Highlights (Small Cards) -->
-        <div class="bento-item stat-card highlight-1">
-            <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
-            <div class="stat-value">开源贡献者</div>
-            <div class="stat-label">Open Source</div>
-        </div>
+                <div class="hero-stage" aria-label="个人数字孪生状态">
+                    <div class="stage-scanline"></div>
+                    <div class="stage-data-stream" aria-hidden="true"><span>01101001</span><span>AGENT::ONLINE</span><span>0x7F / 2048</span><span>VECTOR.SPACE</span><span>10010110</span></div>
+                    <div class="stage-chrome stage-chrome-top"><span>LIVE SYSTEM TWIN</span><span>SYNC 99.8%</span></div>
+                    <div class="stage-coordinate coordinate-top">X 31.9918 / Y 118.7789</div>
+                    <div class="stage-coordinate coordinate-bottom">NODE 0001 / CORE ONLINE</div>
+                    <div class="stage-crosshair crosshair-a"></div>
+                    <div class="stage-crosshair crosshair-b"></div>
+                    <div class="stage-callout callout-core"><span class="callout-line"></span><span>CORE / AI ENGINE</span></div>
+                    <div class="stage-callout callout-infra"><span class="callout-line"></span><span>INFRA / RUNTIME</span></div>
+                    <div class="stage-readout"><span>WORKING STATE</span><strong>OPERATIONAL</strong><small>BUILDING SYSTEMS<br>THAT LEARN</small></div>
+                    <div class="stage-footer"><span><i class="fa-solid fa-circle-nodes"></i> 07 ACTIVE DOMAINS</span><span><i class="fa-solid fa-wave-square"></i> 24.6 FPS</span></div>
+                </div>
+            </section>
 
-        <div class="bento-item stat-card highlight-2">
-            <div class="stat-icon"><i class="fas fa-brain"></i></div>
-            <div class="stat-value">AGI 探索者</div>
-            <div class="stat-label">Explorer</div>
-        </div>
+            <section class="signal-strip" aria-label="系统摘要">
+                <div class="signal-cell"><span class="signal-label">CURRENT FOCUS</span><strong>AI-native after-sales</strong><span class="signal-value">agent orchestration / video collaboration</span></div>
+                <div class="signal-cell"><span class="signal-label">PRIMARY MODE</span><strong>Build / Measure / Refine</strong><span class="signal-value">产品、工程、运营保持同一条链路</span></div>
+                <div class="signal-cell"><span class="signal-label">OPEN CHANNEL</span><strong>合作与技术交流</strong><span class="signal-value">1587237547@qq.com</span></div>
+            </section>
 
-        <!-- Projects Header -->
-        <div class="bento-item section-header">
-            <h2>精选项目</h2>
-            <p>探索 Web3 与 AI 的无限可能</p>
-        </div>
+            <section class="section-block" id="systems" aria-labelledby="systems-title">
+                <div class="section-heading">
+                    <div class="eyebrow"><span>02</span> SELECTED SYSTEMS</div>
+                    <h2 id="systems-title">正在运行的系统</h2>
+                    <p>每个项目都是一个可观察、可迭代的真实系统，而不只是一个展示页。</p>
+                </div>
 
-        <!-- Project: Serverless Framework -->
-        <a href="https://github.com/yuhangwu97/Serverless-Framework" target="_blank"
-            class="bento-item project-card p-serverless">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                <div class="project-list">
+                    <a class="project-row project-primary" href="https://github.com/yuhangwu97/RemoteHelpDesk" target="_blank" rel="noreferrer">
+                        <span class="project-index">01</span>
+                        <div class="project-main"><div class="project-title-line"><h3>RemoteHelpDesk</h3><span class="project-state state-live"><i></i> BUILDING</span></div><p>设备售后智能协作平台，把工单、诊断、知识与实时视频协作纳入一条闭环。</p><div class="project-stack"><span>Go</span><span>Next.js</span><span>Jitsi</span><span>AI Workflow</span></div></div>
+                        <span class="project-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+                    <a class="project-row" href="https://github.com/yuhangwu97/MailGraphAgent" target="_blank" rel="noreferrer">
+                        <span class="project-index">02</span>
+                        <div class="project-main"><div class="project-title-line"><h3>MailGraphAgent</h3><span class="project-state"><i></i> RESEARCH</span></div><p>把邮件、知识图谱和 Agent 推理连成可追踪的工作流，探索企业信息的下一种组织方式。</p><div class="project-stack"><span>Python</span><span>GraphRAG</span><span>IMAP</span><span>LLM</span></div></div>
+                        <span class="project-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+                    <a class="project-row" href="https://github.com/yuhangwu97/loopforge" target="_blank" rel="noreferrer">
+                        <span class="project-index">03</span>
+                        <div class="project-main"><div class="project-title-line"><h3>LoopForge</h3><span class="project-state"><i></i> EXPLORING</span></div><p>以 Plan → Act → Evaluate → Decide 为骨架，让 AI 编程从一次性生成走向持续反馈。</p><div class="project-stack"><span>Python</span><span>Agents</span><span>Evaluation</span></div></div>
+                        <span class="project-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+                    <a class="project-row" href="https://github.com/yuhangwu97/Golang-HR" target="_blank" rel="noreferrer">
+                        <span class="project-index">04</span>
+                        <div class="project-main"><div class="project-title-line"><h3>Golang-HR</h3><span class="project-state"><i></i> SHIPPED</span></div><p>面向企业场景的现代化人力资源系统，关注稳定的后台能力和清晰的业务边界。</p><div class="project-stack"><span>Go</span><span>Vue 3</span><span>MySQL</span></div></div>
+                        <span class="project-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
                 </div>
-                <h3>Serverless FW</h3>
-                <p>基于 Serverless 的后端基础设施模板。</p>
-                <div class="project-tags">
-                    <span>Serverless</span>
-                    <span>Kong</span>
-                </div>
-            </div>
-        </a>
+            </section>
 
-        <!-- Project: Golang-HR -->
-        <a href="https://github.com/yuhangwu97/Golang-HR" target="_blank" class="bento-item project-card p-golang-hr">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+            <section class="section-block stack-section" id="stack" aria-labelledby="stack-title">
+                <div class="section-heading">
+                    <div class="eyebrow"><span>03</span> CAPABILITY MAP</div>
+                    <h2 id="stack-title">能力不是标签，是连接方式</h2>
+                    <p>从模型到运行时，从数据到体验，我更关心系统之间如何互相成就。</p>
                 </div>
-                <h3>Golang-HR</h3>
-                <p>现代化企业级人力资源管理系统。</p>
-                <div class="project-tags">
-                    <span>Go</span>
-                    <span>Vue 3</span>
-                    <span>MySQL</span>
+                <div class="capability-grid">
+                    <article class="capability capability-ai"><span class="capability-number">A / 01</span><i class="fa-solid fa-brain"></i><h3>AI ENGINEERING</h3><p>Agent、RAG、知识图谱、多模态与评估闭环。</p><div class="capability-tags"><span>GraphRAG</span><span>Vector DB</span><span>LLM</span></div></article>
+                    <article class="capability capability-runtime"><span class="capability-number">B / 02</span><i class="fa-solid fa-cubes-stacked"></i><h3>RUNTIME SYSTEMS</h3><p>高并发服务、事件驱动、可观测基础设施。</p><div class="capability-tags"><span>Go</span><span>Rust</span><span>K8s</span></div></article>
+                    <article class="capability capability-product"><span class="capability-number">C / 03</span><i class="fa-solid fa-compass-drafting"></i><h3>PRODUCT CRAFT</h3><p>把复杂能力变成清楚、稳定、愿意被使用的界面。</p><div class="capability-tags"><span>Next.js</span><span>UX</span><span>Systems</span></div></article>
                 </div>
-            </div>
-        </a>
+            </section>
+        </main>
 
-        <!-- Project: Python-Web-Framework -->
-        <a href="https://github.com/yuhangwu97/Python-Web-Framework" target="_blank"
-            class="bento-item project-card p-python-web">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
-                </div>
-                <h3>Python Web FW</h3>
-                <p>高性能企业级 Python Web 框架。</p>
-                <div class="project-tags">
-                    <span>Python</span>
-                    <span>Web Framework</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Project: Web3 Pay -->
-        <a href="https://github.com/yuhangwu97/web3-pay" target="_blank" class="bento-item project-card p-web3">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
-                </div>
-                <h3>web3-pay</h3>
-                <p>去中心化金融支付解决方案演示。</p>
-                <div class="project-tags">
-                    <span>Web3.js</span>
-                    <span>DeFi</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Project: Gemini Cortex -->
-        <a href="https://github.com/yuhangwu97/Gemini-Cortex" target="_blank" class="bento-item project-card p-gemini">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
-                </div>
-                <h3>Gemini Cortex</h3>
-                <p>集成 Google Gemini 模型的智能 Agent。</p>
-                <div class="project-tags">
-                    <span>LLM</span>
-                    <span>React</span>
-                </div>
-            </div>
-        </a>
-
-
-
-        <!-- Project: Yu-Doc -->
-        <a href="https://github.com/yuhangwu97/Yu-Doc" target="_blank" class="bento-item project-card p-doc">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
-                </div>
-                <h3>Yu-Doc</h3>
-                <p>支持图谱关联的个人知识库系统。</p>
-                <div class="project-tags">
-                    <span>Knowledge Graph</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Project: AIGC Platform -->
-        <a href="https://github.com/yuhangwu97/AIGC-Platform-demo" target="_blank"
-            class="bento-item project-card p-aigc">
-            <div class="project-content">
-                <div class="project-top">
-                    <div class="folder-icon"><i class="far fa-folder-open"></i></div>
-                    <div class="external-icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
-                </div>
-                <h3>AIGC Platform</h3>
-                <p>多模态内容生成与管理平台演示。</p>
-                <div class="project-tags">
-                    <span>Next.js</span>
-                    <span>Python</span>
-                </div>
-            </div>
-        </a>
-
+        <footer class="footer" id="contact">
+            <div><span class="footer-kicker">04 / CONTACT</span><h2>一起构建下一套系统。</h2></div>
+            <div class="footer-links"><a href="mailto:1587237547@qq.com">1587237547@qq.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a><a href="https://github.com/yuhangwu97" target="_blank" rel="noreferrer">github.com/yuhangwu97 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+            <div class="footer-bottom"><span>© 2026 WU YUHANG</span><span>DIGITAL TWIN WORKBENCH / V1.0</span></div>
+        </footer>
     </div>
-
-    <footer>
-        <p>© 2026 Wu Yuhang. Crafted with <i class="fas fa-heart" style="color: #e11d48;"></i> & Code.</p>
-    </footer>
-
-    <script>
-        // Simple subtle parallax effect for the mesh background
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-
-            const mesh = document.querySelector('.background-mesh');
-            mesh.style.transform = `translate(-${x * 20}px, -${y * 20}px)`;
-        });
-    </script>
 </body>
 
 </html>
