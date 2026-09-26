@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#071014">
+    <meta name="theme-color" content="#f3f2ed">
     <meta name="description" content="Wu Yuhang 的个人数字孪生工作台：AI 系统、全栈工程与可持续的产品构建。">
     <title>Wu Yuhang | Digital Twin Workbench</title>
 
@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20260911-2">
-    <script type="module" src="app.js?v=20260911-2"></script>
+    <link rel="stylesheet" href="styles.css?v=20260926-3">
+    <script type="module" src="app.js?v=20260926-3"></script>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
         <main>
             <section class="hero" aria-labelledby="hero-title">
                 <div class="hero-copy">
-                    <div class="eyebrow"><span>01</span> PERSONAL DIGITAL TWIN</div>
+                    <div class="eyebrow"><span>01</span> INDEPENDENT ENGINEER / BUILDER</div>
                     <h1 id="hero-title">让复杂系统<br><em>变得可理解。</em></h1>
                     <p class="hero-summary">我是吴宇航，专注 AI 工程、后端系统与产品体验。把模型、数据和基础设施连接起来，交付真正能在现场持续运行的产品。</p>
 
@@ -51,8 +51,6 @@
                         <a class="button button-ghost" href="https://github.com/yuhangwu97" target="_blank" rel="noreferrer">GitHub <i class="fa-brands fa-github"></i></a>
                     </div>
 
-                    <div class="terminal-readout" aria-label="系统命令状态"><span class="terminal-prompt">$</span><span>twin.boot --mode=adaptive</span><span class="terminal-cursor"></span><strong>READY</strong></div>
-
                     <div class="hero-facts" aria-label="个人概览">
                         <div><strong>10+</strong><span>YEARS IN CODE</span></div>
                         <div><strong>39</strong><span>PUBLIC REPOS</span></div>
@@ -60,20 +58,30 @@
                     </div>
                 </div>
 
-                <div class="hero-stage" aria-label="个人数字孪生状态">
-                    <canvas id="twin-canvas" aria-hidden="true"></canvas>
-                    <div class="scene-fallback" aria-hidden="true"><span></span></div>
-                    <div class="stage-scanline"></div>
-                    <div class="stage-data-stream" aria-hidden="true"><span>01101001</span><span>AGENT::ONLINE</span><span>0x7F / 2048</span><span>VECTOR.SPACE</span><span>10010110</span></div>
-                    <div class="stage-chrome stage-chrome-top"><span>LIVE SYSTEM TWIN</span><span>SYNC 99.8%</span></div>
-                    <div class="stage-coordinate coordinate-top">X 31.9918 / Y 118.7789</div>
-                    <div class="stage-coordinate coordinate-bottom">NODE 0001 / CORE ONLINE</div>
-                    <div class="stage-crosshair crosshair-a"></div>
-                    <div class="stage-crosshair crosshair-b"></div>
-                    <div class="stage-callout callout-core"><span class="callout-line"></span><span>NEURAL CORE / ACTIVE</span></div>
-                    <div class="stage-callout callout-infra"><span class="callout-line"></span><span>RUNTIME / STABLE</span></div>
-                    <div class="stage-readout"><span>WORKING STATE</span><strong>OPERATIONAL</strong><small>BUILDING SYSTEMS<br>THAT LEARN</small></div>
-                    <div class="stage-footer"><span><i class="fa-solid fa-circle-nodes"></i> 07 ACTIVE DOMAINS</span><span><i class="fa-solid fa-wave-square"></i> 24.6 FPS</span></div>
+                <div class="hero-stage" data-mode="network" aria-label="AI 三维交互图谱">
+                    <div class="scene-heading"><span>AN ATLAS OF INTELLIGENCE</span><span id="scene-view-name">NEURAL NETWORK</span></div>
+                    <div class="scene-viewport" role="group" tabindex="-1" aria-label="AI 三维场景，可拖动或用方向键旋转，Home 键复位">
+                        <canvas id="twin-canvas" aria-hidden="true"></canvas>
+                        <div class="system-fallback" aria-hidden="true">
+                            <svg class="atlas-static" viewBox="0 0 500 340" fill="none">
+                                <g stroke="#6b9483" stroke-width="1.2" opacity=".55"><path d="M80 115 190 60 300 115 410 65M80 115 190 165 300 115 410 175M80 225 190 165 300 240 410 175M80 225 190 280 300 240 410 285M190 60 300 240M190 280 300 115M80 115 190 280M80 225 190 60"/></g>
+                                <g fill="#567d6b"><circle cx="80" cy="115" r="8"/><circle cx="80" cy="225" r="8"/><circle cx="190" cy="60" r="8"/><circle cx="190" cy="165" r="11"/><circle cx="190" cy="280" r="8"/><circle cx="300" cy="115" r="11"/><circle cx="300" cy="240" r="8"/><circle cx="410" cy="65" r="8"/><circle cx="410" cy="175" r="8"/><circle cx="410" cy="285" r="8"/></g>
+                            </svg>
+                        </div>
+                        <div class="atlas-labels" aria-hidden="true"></div>
+                    </div>
+                    <p class="scene-interaction-hint">正在载入 AI 场景</p>
+                    <div class="scene-controls" role="group" aria-label="切换 AI 视图">
+                        <button type="button" data-view="network" aria-pressed="true"><span>01</span> 神经网络</button>
+                        <button type="button" data-view="brain" aria-pressed="false"><span>02</span> 数字大脑</button>
+                        <button type="button" data-view="agents" aria-pressed="false"><span>03</span> Agent 协作</button>
+                    </div>
+                    <div class="scene-caption" aria-live="polite" aria-atomic="true">
+                        <h2 id="scene-title">连接，让信息产生意义。</h2>
+                        <p id="scene-description">从输入、表征到推理与输出，沿信号流探索神经网络的空间结构。</p>
+                        <a id="scene-link" href="#systems">探索 AI 项目</a>
+                    </div>
+                    <p class="scene-disclaimer">AI 概念可视化 · 非实时模型运行数据</p>
                 </div>
             </section>
 
