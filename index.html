@@ -12,11 +12,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20260926-3">
-    <script type="module" src="app.js?v=20260926-3"></script>
+    <link rel="stylesheet" href="styles.css?v=20260927-1">
+    <script type="module" src="app.js?v=20260927-1"></script>
 </head>
 
 <body>
+    <dialog id="station-cover" class="station-cover" aria-labelledby="station-title" aria-describedby="station-subtitle">
+        <div class="station-scene" aria-busy="true"></div>
+        <div class="station-shade" aria-hidden="true"></div>
+        <div class="station-topline"><span>YUHANG / A SMALL WORLD</span><button type="button" class="station-close" data-close-station aria-label="关闭驿站，返回主页"><span aria-hidden="true">×</span></button></div>
+        <div class="station-intro">
+            <p class="station-kicker">SOMEWHERE BETWEEN CODE & LIFE</p>
+            <h2 id="station-title">欢迎来到<br><em>yuhang 驿站。</em></h2>
+            <p id="station-subtitle">南京五桥的清晨，<br>在代码之外，留一处可以停留的小世界。</p>
+            <button type="button" class="station-enter" data-close-station>进入我的主页 <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="station-bottomline"><span>南京 · 清晨</span><span class="station-status" role="status">正在走进驿站…</span><span class="station-escape">ESC 返回主页</span></div>
+    </dialog>
     <div class="page-shell">
         <header class="topbar" id="top">
             <a class="brand" href="#top" aria-label="回到首页">
@@ -28,6 +40,7 @@
             </a>
 
             <nav class="topnav" aria-label="主导航">
+                <button type="button" class="station-launch" data-open-station aria-haspopup="dialog" aria-controls="station-cover" aria-expanded="false"><span aria-hidden="true">◈</span> 驿站漫游</button>
                 <a href="#systems">Systems</a>
                 <a href="#stack">Stack</a>
                 <a href="#contact">Contact</a>

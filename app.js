@@ -1,3 +1,5 @@
+import { initStationCover } from './station-cover.js?v=20260927-1'
+
 const stage = document.querySelector('.hero-stage')
 const viewport = stage.querySelector('.scene-viewport')
 const canvas = document.querySelector('#twin-canvas')
@@ -9,6 +11,8 @@ const modes = {
 }
 let selected = 'network'
 let atlas
+let booting = false
+let covered = false
 const buttons = [...document.querySelectorAll('[data-view]')]
 buttons.forEach(button => button.addEventListener('click', () => {
   selected = button.dataset.view
@@ -30,17 +34,25 @@ function onReady(ready) {
     ? '拖动探索空间 · 方向键旋转 · Home 复位' : '静态示意 · 3D 场景暂不可用'
 }
 async function boot() {
+  if (booting || atlas) return
+  booting = true
   try {
     const [THREE, { createAIAtlas }] = await Promise.all([
       import('./vendor/three.module.min.js'),
-      import('./ai-scene.js?v=20260926-3'),
+      import('./ai-scene.js?v=20260927-1'),
     ])
     atlas = createAIAtlas(THREE, { canvas, viewport, motion, onReady })
     atlas.select(selected)
+    atlas.setPaused(covered)
   } catch (error) {
     onReady(false)
     console.warn('AI atlas is using its static illustration.', error)
-  }
+  } finally { booting = false }
 }
 window.addEventListener('pagehide', event => { if (!event.persisted) atlas?.dispose() })
-boot()
+const cover = initStationCover({ onChange(open) {
+  covered = open
+  atlas?.setPaused(open)
+  if (!open) boot()
+} })
+if (!cover.isOpen()) boot()

@@ -156,17 +156,18 @@ export function createAIAtlas(T, { canvas, viewport, motion, onReady }) {
     })
   }
   let mode = 'network', frame = 0, last = 0, time = 0, visible = true, disposed = false, lost = false
+  let paused = false
   let transition = 1, dragging = false, pointer = null, previousX = 0, previousY = 0, yaw = -0.25, pitch = 0
   const projection = new T.Vector3()
   const targetScale = new T.Vector3()
   const startPositions = current.map(p => p.clone())
   let brainOpacity = 0, agentOpacity = 0
   function schedule() {
-    if (!frame && !disposed && !lost && visible && !document.hidden) frame = requestAnimationFrame(render)
+    if (!frame && !disposed && !lost && !paused && visible && !document.hidden) frame = requestAnimationFrame(render)
   }
   function render(now) {
     frame = 0
-    if (disposed || lost || !visible || document.hidden) return
+    if (disposed || lost || paused || !visible || document.hidden) return
     const dt = Math.min((now - last) / 1000 || 0.016, 0.04)
     last = now
     if (!motion.matches) time += dt
@@ -287,6 +288,13 @@ export function createAIAtlas(T, { canvas, viewport, motion, onReady }) {
   render(performance.now())
   onReady(true)
   return {
+    setPaused(value) {
+      paused = value
+      cancelAnimationFrame(frame)
+      frame = 0
+      last = performance.now()
+      if (!paused) schedule()
+    },
     select(next) {
       if (!positions[next]) return
       current.forEach((position, i) => startPositions[i].copy(position))
